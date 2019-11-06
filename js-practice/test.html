@@ -1,0 +1,1169 @@
+<!-- saved from url=(0112)file://C:\Users\June\Downloads\방통대 유틸\방통대 유틸\시뮬레이션 TOOLKIT_1\Contents\WaitTime\WaitTimeReport.htm -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- 개발자 도구로 작성. 원본 파일을 정확하게 표현한 것이 아닐 수도 있습니다 -->
+<HTML><HEAD><TITLE>시뮬레이션</TITLE>
+<META content="text/html; charset=euc-kr" http-equiv=Content-Type>
+<SCRIPT language=JavaScript type=text/JavaScript>
+
+function init()
+{
+	window.focus();
+	setTimeout("writeReport()", 100);
+}
+
+function writeReport()
+{
+	var m_seq = 0;// 순서
+	var m_timeSequence = 1;
+	var m_randomSeed = 2;
+	var m_randomResult = 3;
+	var m_poissnSeed = 4;
+	var m_idleTime0 = 5;
+	var m_idleTime1 = 6;
+	var m_idleTime2 = 7;
+	var m_idleTime3 = 8;
+	var m_idleTime4 = 9;
+	var m_arriveNumber = 10;
+	var m_allotCount0 = 11;
+	var m_allotCount1 = 12;
+	var m_allotCount2 = 13;
+	var m_allotCount3 = 14;
+	var m_allotCount4 = 15;
+	var m_serviceNumber0 = 16;
+	var m_serviceNumber1 = 17;
+	var m_serviceNumber2 = 18;
+	var m_serviceNumber3 = 19;
+	var m_serviceNumber4 = 20;
+	var m_remainTime0 = 21;
+	var m_remainTime1 = 22;
+	var m_remainTime2 = 23;
+	var m_remainTime3 = 24;
+	var m_remainTime4 = 25;
+	var m_leaveNumber0 = 26;
+	var m_leaveNumber1 = 27;
+	var m_leaveNumber2 = 28;
+	var m_leaveNumber3 = 29;
+	var m_leaveNumber4 = 30;
+	var m_firstNumber = 31;
+	var m_queueLength = 32;
+	var m_averageQueue = 33;
+	var m_totalQueue = 34;
+	var m_totalArrive = 35;
+	var m_arriveState = 36;
+	var m_allotTime0 = 37;
+	var m_allotTime1 = 38;
+	var m_allotTime2 = 39;
+	var m_allotTime3 = 40;
+	var m_allotTime4 = 41;
+	var str = "";
+	var cnt;
+	var seq;
+	var w = Number(opener.ToolkitSWF.GetVariable("_root.objDefine.pubWicket"));
+	
+	str += "<table width='640' height='500' border='0' cellpadding='14' cellspacing='1' bgcolor='#666666' style='font-size: 12px; line-height: 16px;'>";
+	str += "<tr>";
+	str += "<td align='center' valign='top' bgcolor='#FFFFFF'>";
+	
+	str += "<table width='100%' border='0' cellspacing='1' cellpadding='4' style='font-size: 12px; line-height: 16px;'>";
+	str += "<tr>";
+	str += "<td align='center'>";
+	str += "대기시간";
+	str += "<hr width='300' size='1'>";
+	str += "</td>";
+	str += "</tr>";
+	str += "</table>";
+	
+	str += "<table width='100%' border='0' cellpadding='4' cellspacing='1' bgcolor='#669966' style='font-size: 12px; line-height: 16px;'>";
+	str += "<tr>";
+	str += "<td width='50%' align='center' bgcolor='#99CC99'>조건 데이터</td>";
+	str += "<td width='50%' align='center' bgcolor='#99CC99'>결과 데이터</td>";
+	str += "</tr>";
+	str += "<tr>";
+	str += "<td valign='top' bgcolor='#FFFFFF'>";
+	str += "봉　사　창　구 : " + opener.ToolkitSWF.GetVariable("_root.objDefine.pubWicket");
+	str += "<br>";
+	str += "도　착　형　태 : " + opener.ToolkitSWF.GetVariable("_root.objDefine.pubArriveForm");
+	str += "<br>";
+	str += "봉　사　형　태 : " + opener.ToolkitSWF.GetVariable("_root.objDefine.pubServiceForm");
+	str += "<br>";
+	str += "난　수　초기값 : " + opener.ToolkitSWF.GetVariable("_root.objDefine.pubSeed");
+	str += "<br>";
+	str += "수　행　시　간 : " + opener.getVarData(110, 1);
+	str += "</td>";
+	str += "<td valign='top' bgcolor='#FFFFFF'>";
+	str += "도 착 한　고 객 의 수 : " + opener.getVarData(110, 35);
+	str += "<br>";
+	str += "평균 대기행렬의 크기 : " + Math.ceil(opener.getVarData(110, 33)*100)/100;
+	avgwt = opener.getVarData(110, 34) / opener.getVarData(110, 35);
+	str += "<br>";
+	str += "평균 대기시간의 크기 : " + Math.floor(avgwt*10000000)/10000000;
+	str += "</td>";
+	str += "</tr>";
+	str += "</table>";
+	
+	str += "<br>";
+	str += "<table width='100%' border='0' cellspacing='0' cellpadding='0' style='font-size: 12px; line-height: 16px;'>";
+	str += "<tr>";
+	str += "<td>";
+	str += "<table width='100%' border='0' cellpadding='4' cellspacing='1' bgcolor='#669966' style='font-size: 12px; line-height: 16px;'>";
+	str += "<tr>";
+	str += "<td colspan='8' align='center' bgcolor='#99CC99'>";
+	str += "출력범위: " + opener.getVarData(10, 0) + " ~ " + opener.getVarData(110, 0);
+	str += "</td>";
+	str += "</tr>";
+	str += "<tr>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "TIME";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "ARRIVE";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "QUEUE";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "TPUMP[1]";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "TPUMP[2]";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "TPUMP[3]";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "TPUMP[4]";
+	str += "</td>";
+	str += "<td align='center' bgcolor='#99CC99'>";
+	str += "TPUMP[5]";
+	str += "</td>";
+	str += "</tr>";
+	for(i = 10; i <= 110; i++)
+	{
+		str += "<tr>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		str += opener.getVarData(i, 1);
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		arv = Number(opener.getVarData(i, 10));
+		if(arv > 0) arv = 1;
+		str += arv;
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		str += opener.getVarData(i, 32);
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		if(w >= 1)
+		{
+			str += opener.getVarData(i, 21);
+		}
+		else
+		{
+			str += "-";
+		}
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		if(w >= 2)
+		{
+			str += opener.getVarData(i, 22);
+		}
+		else
+		{
+			str += "-";
+		}
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		if(w >= 3)
+		{
+			str += opener.getVarData(i, 23);
+		}
+		else
+		{
+			str += "-";
+		}
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		if(w >= 4)
+		{
+			str += opener.getVarData(i, 24);
+		}
+		else
+		{
+			str += "-";
+		}
+		str += "</td>";
+		str += "<td align='center' bgcolor='#FFFFFF'>";
+		if(w >= 5)
+		{
+			str += opener.getVarData(i, 25);
+		}
+		else
+		{
+			str += "-";
+		}
+		str += "</td>";
+		str += "</tr>";
+	}
+	str += "</table>";
+	str += "</td>";
+	str += "</tr>";
+	str += "</table>";
+
+	str += "</td>";
+	str += "</tr>";
+	str += "</table>";
+	
+	ReportContents.innerHTML = str;
+}
+
+</SCRIPT>
+
+<STYLE type=text/css>BODY {
+	FONT-FAMILY: "돋움체"
+}
+</STYLE>
+</HEAD>
+<BODY id=ReportContents onload=init();>
+<TABLE style="LINE-HEIGHT: 16px; FONT-SIZE: 12px" border=0 cellSpacing=1 cellPadding=14 width=640 bgColor=#666666 height=500>
+<TBODY>
+<TR>
+<TD bgColor=#ffffff vAlign=top align=middle>
+<TABLE style="LINE-HEIGHT: 16px; FONT-SIZE: 12px" border=0 cellSpacing=1 cellPadding=4 width="100%">
+<TBODY>
+<TR>
+<TD align=middle>대기시간
+<HR SIZE=1 width=300>
+</TD></TR></TBODY></TABLE>
+<TABLE style="LINE-HEIGHT: 16px; FONT-SIZE: 12px" border=0 cellSpacing=1 cellPadding=4 width="100%" bgColor=#669966>
+<TBODY>
+<TR>
+<TD bgColor=#99cc99 width="50%" align=middle>조건 데이터</TD>
+<TD bgColor=#99cc99 width="50%" align=middle>결과 데이터</TD></TR>
+<TR>
+<TD bgColor=#ffffff vAlign=top>봉　사　창　구 : 1<BR>도　착　형　태 : 20<BR>봉　사　형　태 : 4<BR>난　수　초기값 : 364669<BR>수　행　시　간 : 100</TD>
+<TD bgColor=#ffffff vAlign=top>도 착 한　고 객 의 수 : 35<BR>평균 대기행렬의 크기 : 4.42<BR>평균 대기시간의 크기 : 12.6285714</TD></TR></TBODY></TABLE><BR>
+<TABLE style="LINE-HEIGHT: 16px; FONT-SIZE: 12px" border=0 cellSpacing=0 cellPadding=0 width="100%">
+<TBODY>
+<TR>
+<TD>
+<TABLE style="LINE-HEIGHT: 16px; FONT-SIZE: 12px" border=0 cellSpacing=1 cellPadding=4 width="100%" bgColor=#669966>
+<TBODY>
+<TR>
+<TD bgColor=#99cc99 colSpan=8 align=middle>출력범위: 0 ~ 100</TD></TR>
+<TR>
+<TD bgColor=#99cc99 align=middle>TIME</TD>
+<TD bgColor=#99cc99 align=middle>ARRIVE</TD>
+<TD bgColor=#99cc99 align=middle>QUEUE</TD>
+<TD bgColor=#99cc99 align=middle>TPUMP[1]</TD>
+<TD bgColor=#99cc99 align=middle>TPUMP[2]</TD>
+<TD bgColor=#99cc99 align=middle>TPUMP[3]</TD>
+<TD bgColor=#99cc99 align=middle>TPUMP[4]</TD>
+<TD bgColor=#99cc99 align=middle>TPUMP[5]</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>8</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>10</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>11</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>12</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>13</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>14</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>15</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>16</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>17</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>18</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>19</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>20</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>21</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>22</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>23</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>24</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>25</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>26</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>27</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>28</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>29</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>30</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>31</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>32</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>33</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>34</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>35</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>36</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>37</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>38</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>39</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>40</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>41</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>42</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>43</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>44</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>45</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>46</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>47</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>48</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>49</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>50</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>51</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>52</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>53</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>54</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>55</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>56</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>57</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>58</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>59</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>60</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>61</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>62</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>63</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>8</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>64</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>65</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>66</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>67</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>68</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>69</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>70</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>71</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>72</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>73</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>74</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>8</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>75</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>8</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>76</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>77</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>78</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>79</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>80</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>81</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>82</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>83</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>84</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>85</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>86</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>87</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>88</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>89</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>90</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>91</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>92</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>8</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>93</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>94</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>2</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>95</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>96</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>7</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>97</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>9</TD>
+<TD bgColor=#ffffff align=middle>6</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>98</TD>
+<TD bgColor=#ffffff align=middle>1</TD>
+<TD bgColor=#ffffff align=middle>10</TD>
+<TD bgColor=#ffffff align=middle>5</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>99</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>10</TD>
+<TD bgColor=#ffffff align=middle>4</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR>
+<TR>
+<TD bgColor=#ffffff align=middle>100</TD>
+<TD bgColor=#ffffff align=middle>0</TD>
+<TD bgColor=#ffffff align=middle>10</TD>
+<TD bgColor=#ffffff align=middle>3</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD>
+<TD bgColor=#ffffff align=middle>-</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>  
