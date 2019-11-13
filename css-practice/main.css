@@ -9,7 +9,9 @@ header {
     padding: 20px;
 }
 
-header nav {}
+header nav {
+
+}
 
 header nav ul {
     display: flex;
@@ -19,6 +21,11 @@ header nav ul li {
     list-style: none;
     margin: 10px;
 }
+
+/* h2{
+    padding-bottom: 1000px;
+} */
+
 
 main {
     display: flex;
@@ -33,7 +40,9 @@ section {
 
 }
 
-section h1 {}
+section h1 {
+
+}
 
 article {
     background: blueviolet;
@@ -41,9 +50,13 @@ article {
     padding: 10px;
 }
 
-article h2 {}
+article h2 {
 
-article p {}
+}
+
+article p {
+
+}
 
 aside {
     background: red;
@@ -59,8 +72,25 @@ footer {
     padding: 20px;
 }
 
-footer address {}
+footer address {
 
-footer address a {
+}
+
+footer address a:nth-child(1){
+    font-weight: bold;
+    width:100px;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 6px;
+    display: block;
+    text-align: center;
+}
+footer address a:nth-child(1):hover{
+    background: orange;
+}
+
+
+footer address a{
     display: block;
 }
