@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="./practice.css">
 </head>
+
 <body>
     <form action="/login" method="get" target="_blank">
         <input type="email" name="email">
         <input type="password" name="password">
         <button type="submit">로그인</button>
+
+        <!-- 라벨 가능 요소를 참조 -->
+        <input type="checkbox" id="user-agreement" />
+        <label for="user-agreement">동의하십니까?</label>
+
+        <!-- 라벨 가능 요소를 포함 -->
+        <label><input type="checkbox" />동의하십니까?</label>
+
+        <fieldset id="form">
+            <legend>dddd</legend>
+            <input type="reset" value="초기화">
+            <button type="reset" autofocus>button</button>
+
+            <input type="submit" value="초기화">
+            <button type="submit" autofocus>button</button>
+
+            <button type="button" onclick="doit()">클릭하세요</button>
+        </fieldset>
+
+        <select name="" id="" size="3">
+            <optgroup label="냥냥">
+                <option value="">a</option>
+                <option value="">b</option>
+                <option value="">c</option>
+            </optgroup>
+            <option value="">d</option>
+            <option value="">e</option>
+        </select>
+
+        <progress value="0" max="100"></progress>
+
+
+        <script>
+            function doit() {
+                alert("!!!");
+            }
+            const progress = document.querySelector('progress');
+            const interval = setInterval(function (){
+                progress.value += 10;
+                if(progress.value >= 100) {
+                    clearInterval(interval)
+                }
+            },1000);
+        </script>
+
+
     </form>
 </body>
+
 </html>
