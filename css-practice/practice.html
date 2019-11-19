@@ -40,21 +40,29 @@
         </select>
 
         <progress value="0" max="100"></progress> -->
+    <div>
+        <ul>
+            <li><span class="orange">오렌지!</span></li>
+            <li class="orange">겨울에 먹는 오렌지!!</li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    &lt;/asd &gt;
 
-        &lt;/asd &gt;
-
-        <script>
-            function doit() {
-                alert("!!!");
+    <script>
+        function doit() {
+            alert("!!!");
+        }
+        const progress = document.querySelector('progress');
+        const interval = setInterval(function () {
+            progress.value += 10;
+            if (progress.value >= 100) {
+                clearInterval(interval)
             }
-            const progress = document.querySelector('progress');
-            const interval = setInterval(function (){
-                progress.value += 10;
-                if(progress.value >= 100) {
-                    clearInterval(interval)
-                }
-            },1000);
-        </script>
+        }, 1000);
+    </script>
 
 
     </form>
