@@ -1,7 +1,111 @@
-body li{
+body {
+    border: 1px solid;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    border: 1px solid;
+    background: #FFFFA3;
+    margin: 10px;
+    padding: 20px;
+}
+
+header nav {
+    
+}
+
+header nav ul {
+    border: 1px solid;
+    display: flex;
+}
+
+header nav ul li {
+    border: 1px solid;
+    list-style: none;
+    margin: 10px;
+}
+
+/* h2{
+    padding-bottom: 1000px;
+} */
+
+
+main {
+    border: 1px solid;
+    display: flex;
+}
+
+section {
+    border: 1px solid;
+    width: 70%;
+    background: #A5E872;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    
+}
+
+section h1 {
+    
+}
+
+article {
+    border: 1px solid;
+    background: #FF7E7D;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+article ul li {
     list-style: none;
 }
 
-span.orange{
-    color: brown;
+article p {
+    
+}
+
+aside {
+    border: 1px solid;
+    background: #9172E8;
+    width: 30%;
+    margin: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+img {
+    width: 400px;
+    height: auto;
+    
+}
+
+footer {
+    border: 1px solid;
+    background: #8AFFFF;
+    margin: 10px;
+    padding: 20px;
+}
+
+footer address {
+    
+}
+
+footer address a:nth-child(1){
+    border: 1px solid;
+    font-weight: bold;
+    width:100px;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 6px;
+    display: block;
+    text-align: center;
+}
+footer address a:nth-child(1):hover{
+    background: #FFDB8D;
+}
+
+div {
+    border: 1px solid;
 }
