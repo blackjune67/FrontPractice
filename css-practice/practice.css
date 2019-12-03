@@ -26,6 +26,14 @@ header nav ul li {
     margin: 10px;
 }
 
+header nav ul li:hover {
+font-weight: bold;
+font-size: 20px;
+transition: 0.5s;
+}
+
+
+
 /* h2{
     padding-bottom: 1000px;
 } */
